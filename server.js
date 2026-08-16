@@ -10,19 +10,24 @@ const cors = require('cors');
 const path = require('path');
 
 // ---------- 1. Firebase Admin ----------
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+
 let firebaseApp;
 
 if (process.env.FIREBASE_CREDENTIALS_JSON) {
-  let serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS_JSON);
-
-  // Corregir los saltos de línea de la llave privada si se aplanaron en el pegado
-  if (serviceAccount.private_key) {
-    serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+  try {
+    let serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS_JSON);
+    if (serviceAccount.private_key) {
+      serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+    }
+    firebaseApp = initializeApp({
+      credential: cert(serviceAccount)
+    });
+  } catch (e) {
+    console.error("Error al parsear FIREBASE_CREDENTIALS_JSON:", e.message);
+    throw e;
   }
-
-  firebaseApp = initializeApp({
-    credential: cert(serviceAccount),
-  });
 } else {
   firebaseApp = initializeApp({
     credential: cert(path.join(__dirname, 'firebase-key.json')),
