@@ -13,9 +13,20 @@ const path = require('path');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
 
-const firebaseApp = initializeApp({
-  credential: cert(path.join(__dirname, 'firebase-key.json')),
-});
+let firebaseApp;
+
+if (process.env.FIREBASE_CREDENTIALS_JSON) {
+  // Si estamos en Render, parseamos la variable de entorno
+  const serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS_JSON);
+  firebaseApp = initializeApp({
+    credential: cert(serviceAccount)
+  });
+} else {
+  // Si estamos en local, usamos el archivo físico por conveniencia
+  firebaseApp = initializeApp({
+    credential: cert(path.join(__dirname, 'firebase-key.json'))
+  });
+}
 
 const db = getFirestore(firebaseApp, 'default');
 
