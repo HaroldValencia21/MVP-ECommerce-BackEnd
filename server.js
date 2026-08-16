@@ -10,9 +10,9 @@ const cors = require('cors');
 const path = require('path');
 
 // ---------- 1. Firebase Admin ----------
+// ---------- 1. Firebase Admin ----------
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
-const path = require('path');
 
 let firebaseApp;
 
