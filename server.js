@@ -12,20 +12,20 @@ const path = require('path');
 // ---------- 1. Firebase Admin ----------
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore, FieldValue } = require('firebase-admin/firestore');
+const path = require('path');
 
 let firebaseApp;
 
-if (process.env.FIREBASE_CREDENTIALS_JSON) {
+if (process.env.FIREBASE_CREDENTIALS_BASE64) {
   try {
-    let serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS_JSON);
-    if (serviceAccount.private_key) {
-      serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
-    }
+    const decodedJson = Buffer.from(process.env.FIREBASE_CREDENTIALS_BASE64, 'base64').toString('utf-8');
+    const serviceAccount = JSON.parse(decodedJson);
+
     firebaseApp = initializeApp({
       credential: cert(serviceAccount)
     });
   } catch (e) {
-    console.error("Error al parsear FIREBASE_CREDENTIALS_JSON:", e.message);
+    console.error("Error al decodificar FIREBASE_CREDENTIALS_BASE64:", e.message);
     throw e;
   }
 } else {
