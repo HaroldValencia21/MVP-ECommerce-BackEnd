@@ -1,0 +1,101 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+frontend/.next/
+frontend/out/
+frontend/build/
+backend/dist/
+backend/build/
+**/dist/
+**/build/
+
+# Next.js
+frontend/.env*.local
+frontend/.next/
+.next/
+next-env.d.ts
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Coverage
+coverage/
+**/coverage/
+
+# Cache
+.cache/
+.tsbuildinfo
+*.tsbuildinfo
+.next/cache/
+frontend/.next/cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+.nyc_output/
+**/.nyc_output/
+junit.xml
+
+# Serverless / deployment
+.serverless/
+.vercel/
+.opt/
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Comprehensive TypeScript
+npm-debug.log*
+yarn.log*
+yarn.lock.cache
+
+# VS Code / IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+*.vsix
+
+# Temp files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Misc
+todo.txt
+*.orig
+*.rej
+
+#SDK
+backend/firebase-key.json
